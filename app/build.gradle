@@ -30,4 +30,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 
+    //Fresco
+    compile 'com.facebook.fresco:fresco:0.10.0'
+
 }

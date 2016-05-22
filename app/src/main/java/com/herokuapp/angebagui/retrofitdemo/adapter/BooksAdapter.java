@@ -1,11 +1,14 @@
 package com.herokuapp.angebagui.retrofitdemo.adapter;
 
+import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.herokuapp.angebagui.retrofitdemo.R;
 import com.herokuapp.angebagui.retrofitdemo.model.Book;
 
@@ -32,7 +35,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
     }
     @Override
     public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_book,parent,false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_book_with_fresco,parent,false);
         return new BookViewHolder(view);
     }
 
@@ -53,9 +56,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
                 holder.subtitleTextView.setText(itemBook.subtitle);
             }
 
-            if (itemBook.description != null ){
-                holder.smallDescriptionTextView.setText(itemBook.description);
+            if (itemBook.image != null){
+                final Uri uri = Uri.parse(itemBook.image);
+                final Context context = holder.itemView.getContext();
+                holder.simpleDraweeView.setImageURI(uri, context);
             }
+
+
 
     }
 
@@ -76,12 +83,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
     public static class BookViewHolder extends RecyclerView.ViewHolder{
         public TextView titleTextView;
         public TextView subtitleTextView;
-        public TextView smallDescriptionTextView;
+        public SimpleDraweeView simpleDraweeView;
         public BookViewHolder(View itemView) {
             super(itemView);
             titleTextView = (TextView)itemView.findViewById(R.id.title_textView);
             subtitleTextView = (TextView)itemView.findViewById(R.id.subtitle_textView);
-            smallDescriptionTextView = (TextView)itemView.findViewById(R.id.small_description_textView);
+            simpleDraweeView = (SimpleDraweeView)itemView.findViewById(R.id.book_image);
         }
     }
 }
